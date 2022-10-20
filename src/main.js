@@ -8,7 +8,7 @@ function setCardType(type) {
   const colors = {
     visa: ["#4959EC", "#8000CE"],
     mastercard: ["#C69347", "#DF6F29"],
-    exercito: ["#994371", "#E8E8E8"],
+    brasil: ["#994371", "#E8E8E8"],
     default: ["black", "gray"],
   }
 
@@ -17,4 +17,24 @@ function setCardType(type) {
   ccLogo.setAttribute("src", `cc-${type}.svg`)
 }
 
-setCardType("exercito")
+globalThis.setCardType = setCardType
+
+//security code
+const securityCode = document.querySelector("#security-code")
+const securityCodePattern = {
+  mask: "0000",
+}
+
+const securityCodeMasked = IMask(securityCode, securityCodePattern)
+
+const expirationDate = document.querySelector('#expiration-date')
+const expirationDatePattern = {
+  mask: "MM{/}YY",
+  blocks{
+    MM:{
+      mask: IMask.MaskedRanger,
+      from: 1,
+      to: 12,
+    }
+  }
+}
