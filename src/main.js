@@ -125,3 +125,14 @@ function updateNumberCard(number) {
 
   ccNumber.innerText = number.length === 0 ? "0123 4567 8901 2345" : number
 }
+
+//verificacao da data
+expirationDateMasked.on("accept", () => {
+  updateExperationDate(expirationDate.value)
+})
+
+function updateExperationDate(date) {
+  const ccExperation = document.querySelector(".cc-extra .value")
+
+  ccExperation.innerText = date.length === 0 ? "12/22" : date
+}
