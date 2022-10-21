@@ -62,6 +62,11 @@ const cardNumberPattern = {
       cardtype: "mastercard",
     },
     {
+      mask: "000 0000 0000 0000",
+      regex: /(7\d{0-6})|(12[4-8])/,
+      cardtype: "brasil",
+    },
+    {
       mask: "0000 0000 0000 0000",
       cardtype: "default",
     },
@@ -110,7 +115,8 @@ function updateSecurityCode(code) {
 
 //verificacao do numero do cartao
 cardNumberMasked.on("accept", () => {
-  // setCardType(cardtype)
+  const cardType = cardNumberMasked.masked.currentMask.cardtype
+  setCardType(cardType)
   updateNumberCard(cardNumberMasked.value)
 })
 
