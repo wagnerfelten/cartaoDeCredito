@@ -84,3 +84,11 @@ addButton.addEventListener("click", () => {
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
 })
+
+const cardName = document.querySelector("#card-holder")
+cardName.addEventListener("input", () => {
+  const ccName = document.querySelector(".cc-holder .velue")
+
+  ccName.innerText =
+    cardName.value.length === 0 ? "FULANO DA SILVA" : cardName.value
+})
