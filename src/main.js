@@ -68,8 +68,6 @@ const cardNumberPattern = {
     const cardNumberMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
-
-    console.log(cardNumberMask)
   },
 }
 
@@ -85,10 +83,31 @@ document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
 })
 
-const cardName = document.querySelector("#card-holder")
-cardName.addEventListener("input", () => {
-  const ccName = document.querySelector(".cc-holder .velue")
+const cardHolder = document.querySelector("#card-holder")
+cardHolder.addEventListener("input", () => {
+  const ccHolder = document.querySelector(".cc-holder .value")
 
-  ccName.innerText =
-    cardName.value.length === 0 ? "FULANO DA SILVA" : cardName.value
+  ccHolder.innerText =
+    cardHolder.value.length === 0 ? "FULANO DA SILVA" : cardHolder.value
 })
+
+securityCodeMasked.on("accept", () => {
+  updateSecurityCode(securityCodeMasked.value)
+})
+
+function updateSecurityCode(code) {
+  const ccSecurity = document.querySelector(".cc-security .value")
+
+  ccSecurity.innerText = code.length === 0 ? "123" : code
+}
+
+cardNumberMasked.on("accept", () => {
+  setCardType(cardtype)
+  updateNumberCard(cardNumberMasked.value)
+})
+
+function updateNumberCard(number) {
+  const ccNumber = document.querySelector(".cc-number")
+
+  ccNumber.innerText = number.length === 0 ? "0123 4567 8901 2345" : number
+}
