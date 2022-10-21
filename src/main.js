@@ -61,13 +61,18 @@ const cardNumberPattern = {
       regex: /(5[1-5]\d{0,2}|^22[2-9]\d|^2[3-7]\d{0,2})\d{0,12}/,
       cardtype: "mastercard",
     },
+    {
+      mask: "0000 0000 0000 0000",
+      cardtype: "default",
+    },
   ],
   dispatch: function (appended, dynamicMasked) {
     const number = (dynamicMasked.value + appended).replace(/\D/g, "")
 
-    const cardNumberMask = dynamicMasked.compiledMasks.find(function (item) {
+    const foundMask = dynamicMasked.compiledMasks.find(function (item) {
       return number.match(item.regex)
     })
+    return foundMask
   },
 }
 
@@ -83,6 +88,7 @@ document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
 })
 
+//nome cliente
 const cardHolder = document.querySelector("#card-holder")
 cardHolder.addEventListener("input", () => {
   const ccHolder = document.querySelector(".cc-holder .value")
@@ -91,6 +97,7 @@ cardHolder.addEventListener("input", () => {
     cardHolder.value.length === 0 ? "FULANO DA SILVA" : cardHolder.value
 })
 
+//codigo do cartao
 securityCodeMasked.on("accept", () => {
   updateSecurityCode(securityCodeMasked.value)
 })
@@ -101,8 +108,9 @@ function updateSecurityCode(code) {
   ccSecurity.innerText = code.length === 0 ? "123" : code
 }
 
+//verificacao do numero do cartao
 cardNumberMasked.on("accept", () => {
-  setCardType(cardtype)
+  // setCardType(cardtype)
   updateNumberCard(cardNumberMasked.value)
 })
 
